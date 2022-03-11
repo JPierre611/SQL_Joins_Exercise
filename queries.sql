@@ -64,10 +64,10 @@ Sarah      | Palmer    |         16333 |     3
 Jane       | Smith     |         15000 |     2
 */
 
-SELECT o.first_name, o.last_name, (SUM(v.price)/COUNT(*))::INTEGER AS average_price, COUNT(*)
+SELECT o.first_name, o.last_name, ROUND(AVG(v.price)) average_price, COUNT(*)
 FROM owners o
 JOIN vehicles v
 ON o.id = v.owner_id
 GROUP BY o.first_name, o.last_name
-HAVING COUNT(*) > 1 AND SUM(v.price)/COUNT(*) > 10000
+HAVING COUNT(*) > 1 AND ROUND(AVG(v.price)) > 10000
 ORDER BY o.first_name DESC;
